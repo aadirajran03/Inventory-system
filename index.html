@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SmallShop Inventory — Vanilla JS</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container" id="app" style="display:none">
+    <header>
+      <div>
+        <h1>SmallShop Inventory — Vanilla JS</h1>
+        <div class="small muted">Simple inventory for small shops • Local storage • QR per product</div>
+      </div>
+      <div class="controls">
+        <button id="btn-export">Export JSON</button>
+        <label class="ghost" style="padding:8px;border-radius:8px;display:inline-block;cursor:pointer">
+          Import
+          <input id="import-file" type="file" accept="application/json" style="display:none" />
+        </label>
+        <button id="btn-logout" class="ghost">Logout</button>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section class="card">
+        <h3 style="margin-top:0">Add / Edit Item</h3>
+        <form id="item-form">
+          <div class="row"><label class="small">Name</label><input id="name" required /></div>
+          <div class="row"><label class="small">SKU</label><input id="sku" /></div>
+          <div class="row" style="display:flex;gap:8px"><div style="flex:1"><label class="small">Quantity</label><input id="qty" type="number" min="0" value="0" /></div><div style="flex:1"><label class="small">Price</label><input id="price" type="number" min="0" step="0.01" value="0" /></div></div>
+          <div class="row"><label class="small">Notes</label><textarea id="notes"></textarea></div>
+          <div style="display:flex;gap:8px">
+            <button type="submit">Save Item</button>
+            <button type="button" id="btn-reset" class="ghost">Reset</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div style="display:flex;gap:8px;align-items:center">
+            <input id="search" placeholder="Search name or sku" />
+            <label class="small muted"><input id="lowstock" type="checkbox" /> Low stock (<=5)</label>
+          </div>
+          <div class="small muted">Logged in as <strong id="who">admin</strong></div>
+        </div>
+
+        <table id="tbl">
+          <thead><tr><th>Product</th><th class="small">Qty</th><th class="small">Price</th><th class="small">Actions</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+
+  <!-- QR Modal -->
+  <div id="qr-modal" class="modal">
+    <div class="modal-content">
+      <h3 id="qr-title">QR</h3>
+      <img id="qr-img" class="qr-img" alt="QR" />
+      <div style="margin-top:8px"><button id="qr-close" class="ghost">Close</button></div>
+    </div>
+  </div>
+
+  <!-- Login Screen -->
+  <div id="login-screen" class="login-screen">
+    <div class="card login-card">
+      <h2 style="margin:0 0 10px 0">Sign in</h2>
+      <div class="small muted">Use credentials: <strong>admin / 1234</strong></div>
+      <form id="login-form" style="margin-top:12px">
+        <div class="row"><input id="login-user" placeholder="username" required /></div>
+        <div class="row"><input id="login-pass" placeholder="password" type="password" required /></div>
+        <div style="display:flex;gap:8px">
+          <button type="submit">Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
